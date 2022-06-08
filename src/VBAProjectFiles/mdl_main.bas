@@ -9,10 +9,10 @@ Public Function SearchEbay()
     Dim Category As eCategory
     Dim Radius As eRadius
     
-    strSearchTerm = "fahrrad"
+    strSearchTerm = "roland mc707"
     strLocation = "65428 Rüsselsheim"
     Category = eCategory.all
-    Radius = eRadius.KM_20
+    Radius = eRadius.KM_200
     
     Dim strWebsiteAddress As String
     strWebsiteAddress = "https://www.ebay-kleinanzeigen.de/"
