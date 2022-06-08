@@ -14,6 +14,9 @@ Public Function SearchEbay()
     Category = eCategory.all
     Radius = eRadius.KM_200
     
+    
+    
+    
     Dim strWebsiteAddress As String
     strWebsiteAddress = "https://www.ebay-kleinanzeigen.de/"
     
