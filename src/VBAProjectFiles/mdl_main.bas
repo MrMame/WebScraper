@@ -7,14 +7,15 @@ Public Function SearchEbay()
     Dim strSearchTerm As String
     Dim strLocation As String
     Dim CategoryValue As Integer
-    Dim Radius As eRadius
+    Dim RadiusValue As Integer
     
-    Dim theCategories As New cls_eValCategories
-    
+    Dim theCategories As New cls_ApiCategories
+    Dim theRadius As New cls_ApiRadius
+        
     strSearchTerm = "roland mc707"
     strLocation = "65428 Rüsselsheim"
-    CategoryValue = theCategories.APIValue_All
-    Radius = eRadius.KM_200
+    CategoryValue = theCategories.GetCategoryAPIValue("all")
+    RadiusValue = theRadius.GetRadiusAPIValue("KM_5")
     
     
     
@@ -28,7 +29,7 @@ Public Function SearchEbay()
     
     Dim ResultPagesReader As New cls_ResultPagesReader
     Dim ResultPages As Collection ' of cls_ResultPage
-    Call ResultPagesReader.LoadResultPages(strWebsiteAddress, strSearchTerm, CategoryValue, strLocation, Radius)
+    Call ResultPagesReader.LoadResultPages(strWebsiteAddress, strSearchTerm, CategoryValue, strLocation, RadiusValue)
     Set ResultPages = ResultPagesReader.ResultPages
 
     Dim ResultPage As cls_ResultPage

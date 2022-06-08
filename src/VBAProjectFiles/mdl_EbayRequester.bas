@@ -37,16 +37,16 @@ Option Explicit
 '    all = 0
 '    to_give_away = 192
 'End Enum
-Public Enum eRadius
-    KM_5 = 5
-    KM_10 = 10
-    KM_20 = 20
-    KM_30 = 30
-    KM_50 = 50
-    KM_100 = 100
-    KM_150 = 150
-    KM_200 = 200
-End Enum
+'Public Enum eRadius
+'    KM_5 = 5
+'    KM_10 = 10
+'    KM_20 = 20
+'    KM_30 = 30
+'    KM_50 = 50
+'    KM_100 = 100
+'    KM_150 = 150
+'    KM_200 = 200
+'End Enum
 
 
 
@@ -67,7 +67,7 @@ Public Function GetHTMLDocument(strAdress As String) As HTMLDocument
 End Function
 
 
-Public Function GetResultpage(ByVal strWebsiteAddress As String, SearchTerm As String, CategoryValue As Integer, Location As String, LocationSearchArea As eRadius) As HTMLDocument
+Public Function GetResultpage(ByVal strWebsiteAddress As String, SearchTerm As String, CategoryValue As Integer, Location As String, RadiusValue As Integer) As HTMLDocument
         
     Dim Html As HTMLDocument, hTable As HTMLTable
     Set Html = New HTMLDocument
@@ -75,7 +75,7 @@ Public Function GetResultpage(ByVal strWebsiteAddress As String, SearchTerm As S
     SearchTerm = Replace(SearchTerm, " ", "+")
     
     Dim strGetRequest As String
-    strGetRequest = strWebsiteAddress & "s-suchanfrage.html?keywords=" & SearchTerm & "&categoryId=" & CategoryValue & "&locationStr=" & Location & "&locationId=&radius=" & LocationSearchArea & "&sortingField=SORTING_DATE&adType=&posterType=&pageNum=1&action=find&maxPrice=&minPrice="
+    strGetRequest = strWebsiteAddress & "s-suchanfrage.html?keywords=" & SearchTerm & "&categoryId=" & CategoryValue & "&locationStr=" & Location & "&locationId=&radius=" & RadiusValue & "&sortingField=SORTING_DATE&adType=&posterType=&pageNum=1&action=find&maxPrice=&minPrice="
     
     Dim oXMLHTTP As New MSXML2.XMLHTTP
     'With CreateObject("MSXML2.XMLHTTP")
