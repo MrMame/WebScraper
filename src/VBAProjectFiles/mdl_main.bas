@@ -2,28 +2,10 @@ Attribute VB_Name = "mdl_main"
 Option Explicit
 
 
-Public Function SearchEbay()
-    
-    Dim strSearchTerm As String
-    Dim strLocation As String
-    Dim CategoryValue As Integer
-    Dim RadiusValue As Integer
-    
-    Dim theCategories As New cls_ApiCategories
-    Dim theRadius As New cls_ApiRadius
-        
-    strSearchTerm = "roland mc707"
-    strLocation = "65428 Rüsselsheim"
-    CategoryValue = theCategories.GetCategoryAPIValue("all")
-    RadiusValue = theRadius.GetRadiusAPIValue("KM_5")
-    
-    
-    
-    
+Public Function SearchEbay(strSearchTerm As String, strLocation As String, CategoryValue As Integer, RadiusValue As Integer)
+
     Dim strWebsiteAddress As String
     strWebsiteAddress = "https://www.ebay-kleinanzeigen.de/"
-    
-
 
     Dim AllAds As New Collection ' of cls_Ad
     
