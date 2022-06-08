@@ -20,12 +20,12 @@ End Property
 
 
 
-Public Sub LoadResultPages(strWebsiteAddress As String, strSearchTerm As String, Category As eCategory, strLocation As String, Radius As eRadius)
+Public Sub LoadResultPages(strWebsiteAddress As String, strSearchTerm As String, CategoryValue As Integer, strLocation As String, Radius As eRadius)
 
     Dim retColResultPages As New Collection
 
     Dim Html As HTMLDocument
-    Set Html = mdl_EbayRequester.GetResultpage(strWebsiteAddress, strSearchTerm, Category, strLocation, Radius)
+    Set Html = mdl_EbayRequester.GetResultpage(strWebsiteAddress, strSearchTerm, CategoryValue, strLocation, Radius)
     
     Dim ResultPage As New cls_ResultPage
     Call ResultPage.LoadFromHTMLDocument(strWebsiteAddress, Html)
