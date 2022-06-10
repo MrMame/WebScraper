@@ -2,7 +2,7 @@ VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
-Attribute VB_Name = "cls_ResultPagesReader"
+Attribute VB_Name = "EBY_CTR_ResultPagesReader"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
@@ -14,7 +14,7 @@ Dim m_colResultPages As Collection ' of ResultPages
 
 
 
-Public Property Get ResultPages() As Collection ' of cls_ResultPages
+Public Property Get ResultPages() As Collection ' of EBY_DAT_PAG_ResultPages
     Set ResultPages = m_colResultPages
 End Property
 
@@ -25,9 +25,9 @@ Public Sub LoadResultPages(strWebsiteAddress As String, strSearchTerm As String,
     Dim retColResultPages As New Collection
 
     Dim Html As HTMLDocument
-    Set Html = mdl_EbayRequester.GetResultpage(strWebsiteAddress, strSearchTerm, CategoryValue, strLocation, RadiusValue)
+    Set Html = EBY_CTR_EbayHtmlRequester.GetResultpage(strWebsiteAddress, strSearchTerm, CategoryValue, strLocation, RadiusValue)
     
-    Dim ResultPage As New cls_ResultPage
+    Dim ResultPage As New EBY_DAT_PAG_ResultPage
     Call ResultPage.LoadFromHTMLDocument(strWebsiteAddress, Html)
     
     Call retColResultPages.Add(ResultPage)

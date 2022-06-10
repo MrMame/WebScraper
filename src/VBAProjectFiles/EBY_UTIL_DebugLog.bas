@@ -1,4 +1,4 @@
-Attribute VB_Name = "mdl_DebugLog"
+Attribute VB_Name = "EBY_UTIL_DebugLog"
 Option Explicit
 
 Public Sub LogToFile(Filename As String, Text As String)

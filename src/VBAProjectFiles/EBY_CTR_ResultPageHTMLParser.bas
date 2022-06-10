@@ -1,4 +1,4 @@
-Attribute VB_Name = "mdl_HtmlParser"
+Attribute VB_Name = "EBY_CTR_ResultPageHTMLParser"
 Option Explicit
 
 
@@ -22,7 +22,7 @@ Public Function ReadResults(strWebsiteAddress As String, Html As HTMLDocument) A
 
     Dim AdDiv As HTMLDivElement
     For Each AdDiv In AdDivs
-        Dim NewAd As cls_Ad
+        Dim NewAd As EBY_DAT_Ad
         Set NewAd = ReadAd(strWebsiteAddress, AdDiv)
         Call ResultAds.Add(NewAd)
     Next
@@ -31,10 +31,10 @@ Public Function ReadResults(strWebsiteAddress As String, Html As HTMLDocument) A
 
 End Function
 
-Public Function ReadNextResultPage(strWebsiteAddress As String, Html As HTMLDocument) As cls_ResultPage
+Public Function ReadNextResultPage(strWebsiteAddress As String, Html As HTMLDocument) As EBY_DAT_PAG_ResultPage
     
     
-    Dim retNextResultPage As cls_ResultPage
+    Dim retNextResultPage As EBY_DAT_PAG_ResultPage
     
     Dim colElements As IHTMLElementCollection
     Set colElements = Html.getElementsByClassName(HTML_CLASSNAME_NEXT_RESULTPAGE)
@@ -51,9 +51,9 @@ Public Function ReadNextResultPage(strWebsiteAddress As String, Html As HTMLDocu
         strUrl = Strings.Replace(NextResultLinkElement, "about:/", strWebsiteAddress)
         
         Dim NextResultHtml As HTMLDocument
-        Set NextResultHtml = mdl_EbayRequester.GetHTMLDocument(strUrl)
+        Set NextResultHtml = EBY_CTR_EbayHtmlRequester.GetHTMLDocument(strUrl)
         
-        Set retNextResultPage = New cls_ResultPage
+        Set retNextResultPage = New EBY_DAT_PAG_ResultPage
         Call retNextResultPage.LoadFromHTMLDocument(strWebsiteAddress, NextResultHtml)
         
     End If
@@ -63,9 +63,9 @@ Public Function ReadNextResultPage(strWebsiteAddress As String, Html As HTMLDocu
     
 End Function
 
-Private Function ReadAd(strWebsiteAddress As String, hResultDiv As HTMLDivElement) As cls_Ad
+Private Function ReadAd(strWebsiteAddress As String, hResultDiv As HTMLDivElement) As EBY_DAT_Ad
 
-    Dim Ad As New cls_Ad
+    Dim Ad As New EBY_DAT_Ad
     Dim colElements As IHTMLElementCollection
 
     Set colElements = hResultDiv.getElementsByClassName(HTML_CLASSNAME_AD_LOCATION)
