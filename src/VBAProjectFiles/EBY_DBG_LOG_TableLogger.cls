@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Implements ILogger
+Implements EBY_DBG_LOG_ILogger
 
 Private Const STRING_SHEETNAME_LOG_INIT As String = "Log"
 
@@ -21,10 +21,10 @@ Private Sub Class_Initialize()
 End Sub
 
 
-Public Sub ILogger_Log(text As String)
-    With m_shtTarget.Cells(m_shtTarget.Rows.Count, 1).End(xlUp)
-        .Offset(1, 0) = Now
-        .Offset(2, 0) = text
+Public Sub EBY_DBG_LOG_ILogger_Log(Text As String)
+    With m_shtTarget.Cells(m_shtTarget.Rows.Count, 1).End(xlUp).Offset(1, 0)
+        .Offset(0, 0) = Now
+        .Offset(0, 1) = Text
     End With
 End Sub
 

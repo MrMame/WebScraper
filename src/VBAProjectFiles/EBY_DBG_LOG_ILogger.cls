@@ -7,7 +7,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'
+'   Interface for Logger Objects like FileLogger or Excel Table Logger.
+'
+'
+'
+
+
 Option Explicit
 
-Public Sub Log(text As String)
-
+Public Sub Log(Text As String): End Sub

@@ -4,12 +4,16 @@ Option Explicit
 
 Public Function SearchEbay(strSearchTerm As String, strLocation As String, CategoryValue As Integer, RadiusValue As Integer)
 
+    Dim theTabLogger As New EBY_DBG_LOG_TableLogger
+
     Dim strWebsiteAddress As String
     strWebsiteAddress = "https://www.ebay-kleinanzeigen.de/"
 
     Dim AllAds As New Collection ' of cls_Ad
     
     Dim ResultPagesReader As New EBY_CTR_ResultPagesReader
+    Call ResultPagesReader.EBY_DBG_LOG_ILoggable_SetLogger(theTabLogger)
+    
     Dim ResultPages As Collection ' of EBY_DAT_PAG_ResultPage
     Call ResultPagesReader.LoadResultPages(strWebsiteAddress, strSearchTerm, CategoryValue, strLocation, RadiusValue)
     Set ResultPages = ResultPagesReader.ResultPages
@@ -32,7 +36,8 @@ Public Function SearchEbay(strSearchTerm As String, strLocation As String, Categ
       
     Next
 
-    Call EBY_CTR_TableWriter.WriteAds(AllAds, "Data")
+    Dim theTableWriter As New EBY_CTR_TableWriter
+    Call theTableWriter.WriteAds(AllAds, "Data")
 
 End Function
 

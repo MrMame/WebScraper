@@ -1,4 +1,12 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
 Attribute VB_Name = "EBY_CTR_ResultPageHTMLParser"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
 Option Explicit
 
 
@@ -51,7 +59,8 @@ Public Function ReadNextResultPage(strWebsiteAddress As String, Html As HTMLDocu
         strUrl = Strings.Replace(NextResultLinkElement, "about:/", strWebsiteAddress)
         
         Dim NextResultHtml As HTMLDocument
-        Set NextResultHtml = EBY_CTR_EbayHtmlRequester.GetHTMLDocument(strUrl)
+        Dim theHtmlRequester As New EBY_CTR_EbayHtmlRequester
+        Set NextResultHtml = theHtmlRequester.GetHTMLDocument(strUrl)
         
         Set retNextResultPage = New EBY_DAT_PAG_ResultPage
         Call retNextResultPage.LoadFromHTMLDocument(strWebsiteAddress, NextResultHtml)
@@ -205,3 +214,4 @@ Private Function CastToDate(strDate As String) As Date
     CastToDate = retDate
 
 End Function
+

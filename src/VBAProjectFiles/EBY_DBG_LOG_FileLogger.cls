@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-Implements ILogger
+Implements EBY_DBG_LOG_ILogger
 
 Private Const STRING_FILENAME_INIT As String = "DebugLog.log"
 
@@ -25,9 +25,9 @@ Private Sub Class_Initialize()
 End Sub
 
 
-Public Sub ILogger_Log(text As String)
-    Set oFile = FSO.CreateTextFile(m_Filename)
-    m_oFile.WriteLine text
+Public Sub EBY_DBG_LOG_ILogger_Log(Text As String)
+    Set m_oFile = m_FSO.CreateTextFile(m_Filename)
+    m_oFile.WriteLine Text
     m_oFile.Close
 End Sub
 
