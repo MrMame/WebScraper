@@ -9,6 +9,10 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+Implements EBY_DBG_LOG_ILoggable
+
+Dim m_logger As EBY_DBG_LOG_ILogger
+
 
 Private Const HTML_CLASSNAME_AD_COLLECTION As String = "aditem-main"
 Private Const HTML_CLASSNAME_AD_LOCATION As String = "aditem-main--top--left"
@@ -34,6 +38,8 @@ Public Function ReadResults(strWebsiteAddress As String, Html As HTMLDocument) A
         Set NewAd = ReadAd(strWebsiteAddress, AdDiv)
         Call ResultAds.Add(NewAd)
     Next
+    
+    Call EBY_DBG_LOG_ILoggable_WriteToLogger("(" & ResultAds.Count & ") Ad's are parsed from address (" & strWebsiteAddress & ")")
     
     Set ReadResults = ResultAds
 
@@ -214,4 +220,15 @@ Private Function CastToDate(strDate As String) As Date
     CastToDate = retDate
 
 End Function
+
+
+
+'   Interface: EBY_DBG_LOG_ILoggable
+'
+Public Sub EBY_DBG_LOG_ILoggable_SetLogger(Logger As EBY_DBG_LOG_ILogger)
+    Set m_logger = Logger
+End Sub
+Private Sub EBY_DBG_LOG_ILoggable_WriteToLogger(Text As String)
+    If (Not m_logger Is Nothing) Then m_logger.Log (Text)
+End Sub
 

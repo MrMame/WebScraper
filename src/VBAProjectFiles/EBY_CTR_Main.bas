@@ -37,6 +37,7 @@ Public Function SearchEbay(strSearchTerm As String, strLocation As String, Categ
     Next
 
     Dim theTableWriter As New EBY_CTR_TableWriter
+    Call theTableWriter.EBY_DBG_LOG_ILoggable_SetLogger(theTabLogger)
     Call theTableWriter.WriteAds(AllAds, "Data")
 
 End Function

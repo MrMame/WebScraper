@@ -9,6 +9,13 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+
+Implements EBY_DBG_LOG_ILoggable
+
+
+Dim m_logger As EBY_DBG_LOG_ILogger
+
+
 Private Const STRING_HEADERNAME_DATE As String = "Datum"
 Private Const STRING_HEADERNAME_LOCATION As String = "Ort"
 Private Const STRING_HEADERNAME_PRICE As String = "Preis"
@@ -62,7 +69,10 @@ Public Sub WriteAds(Ads As Collection, TargetSheetName As String)
      Cells.EntireColumn.AutoFit
 
     Application.ScreenUpdating = True
-
+    
+    
+    EBY_DBG_LOG_ILoggable_WriteToLogger ("Wrote (" & Ads.Count & ") Ad's into Targetsheet (" & TargetSheetName & ")")
+    
 End Sub
 
 Private Function GetSheet(sheetname As String, Optional CleanSheet As Boolean = True) As Worksheet
@@ -89,4 +99,13 @@ End Function
 
 
 
+
+'   Interface: EBY_DBG_LOG_ILoggable
+'
+Public Sub EBY_DBG_LOG_ILoggable_SetLogger(Logger As EBY_DBG_LOG_ILogger)
+    Set m_logger = Logger
+End Sub
+Private Sub EBY_DBG_LOG_ILoggable_WriteToLogger(Text As String)
+    If (Not m_logger Is Nothing) Then m_logger.Log (Text)
+End Sub
 
