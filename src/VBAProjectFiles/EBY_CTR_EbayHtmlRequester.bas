@@ -1,4 +1,4 @@
-Attribute VB_Name = "mdl_EbayRequester"
+Attribute VB_Name = "EBY_CTR_EbayHtmlRequester"
 Option Explicit
 
 

@@ -1,4 +1,4 @@
-Attribute VB_Name = "mdl_TableWriter"
+Attribute VB_Name = "EBY_CTR_TableWriter"
 Option Explicit
 
 Private Const STRING_HEADERNAME_DATE As String = "Datum"
@@ -30,7 +30,7 @@ Public Sub WriteAds(Ads As Collection, TargetSheetName As String)
  
     
     ' Write the Data
-    Dim Ad As cls_Ad
+    Dim Ad As EBY_DAT_Ad
     For Each Ad In Ads
         With shtTarget.Cells(shtTarget.Rows.Count, 1).End(xlUp).Offset(1, 0)
             .Offset(0, 0) = Ad.AdDate

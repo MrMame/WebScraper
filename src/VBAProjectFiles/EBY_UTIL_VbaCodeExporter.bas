@@ -1,4 +1,4 @@
-Attribute VB_Name = "mdl_ModulesImpExp"
+Attribute VB_Name = "EBY_UTIL_VbaCodeExporter"
 Option Explicit
 
 '
