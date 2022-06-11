@@ -62,7 +62,7 @@ Public Function GetHTMLDocument(strAdress As String) As HTMLDocument
     Html.body.innerHTML = .responseText
     End With
     
-    EBY_DBG_LOG_ILoggable_WriteToLogger ("Requested HTMLDocument from address (" & strAdress & "). Length of Responsetext was (" & Len(Html.body.innerHTML) & ") Characters")
+    EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester] Requested HTMLDocument from address (" & strAdress & "). Length of Responsetext was (" & Len(Html.body.innerHTML) & ") Characters")
     
     Set GetHTMLDocument = Html
 End Function
@@ -82,10 +82,11 @@ Public Function GetResultpage(ByVal strWebsiteAddress As String, SearchTerm As S
     With oXMLHTTP
         .Open "GET", strGetRequest, False
         .send
-    Html.body.innerHTML = .responseText
+        Html.body.innerHTML = .responseText
+        EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester] oXMLHTTP.status = (" & .Status & ") oXMLHTTP.statusText=(" & .statusText & ")")
     End With
     
-    EBY_DBG_LOG_ILoggable_WriteToLogger ("Requested Resultpage HTMLDocument from address (" & strWebsiteAddress & "). Lentgh of Responsetext was (" & Len(Html.body.innerHTML) & ") characters.")
+    EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester] Requested Resultpage HTMLDocument from address (" & strWebsiteAddress & "). Lentgh of Responsetext was (" & Len(Html.body.innerHTML) & ") characters. Get-Request text was (" & strGetRequest & ")")
 
     
     Set GetResultpage = Html

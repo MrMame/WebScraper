@@ -3,8 +3,9 @@ Option Explicit
 
 
 Public Function SearchEbay(strSearchTerm As String, strLocation As String, CategoryValue As Integer, RadiusValue As Integer)
-
-    Dim theTabLogger As New EBY_DBG_LOG_TableLogger
+    ' Create Logger and collect them inside the Multilogger
+    Dim theLoggers As EBY_DBG_LOG_ILogger
+    Set theLoggers = EBY_DBG_LOG_LoggerFactory.CreateFullMultiLogger
 
     Dim strWebsiteAddress As String
     strWebsiteAddress = "https://www.ebay-kleinanzeigen.de/"
@@ -12,7 +13,7 @@ Public Function SearchEbay(strSearchTerm As String, strLocation As String, Categ
     Dim AllAds As New Collection ' of cls_Ad
     
     Dim ResultPagesReader As New EBY_CTR_ResultPagesReader
-    Call ResultPagesReader.EBY_DBG_LOG_ILoggable_SetLogger(theTabLogger)
+    Call ResultPagesReader.EBY_DBG_LOG_ILoggable_SetLogger(theLoggers)
     
     Dim ResultPages As Collection ' of EBY_DAT_PAG_ResultPage
     Call ResultPagesReader.LoadResultPages(strWebsiteAddress, strSearchTerm, CategoryValue, strLocation, RadiusValue)
@@ -37,7 +38,7 @@ Public Function SearchEbay(strSearchTerm As String, strLocation As String, Categ
     Next
 
     Dim theTableWriter As New EBY_CTR_TableWriter
-    Call theTableWriter.EBY_DBG_LOG_ILoggable_SetLogger(theTabLogger)
+    Call theTableWriter.EBY_DBG_LOG_ILoggable_SetLogger(theLoggers)
     Call theTableWriter.WriteAds(AllAds, "Data")
 
 End Function
