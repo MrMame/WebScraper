@@ -1,5 +1,17 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
 Attribute VB_Name = "EBY_CTR_ResultPageHTMLParser"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
 Option Explicit
+
+Implements EBY_DBG_LOG_ILoggable
+
+Dim m_logger As EBY_DBG_LOG_ILogger
 
 
 Private Const HTML_CLASSNAME_AD_COLLECTION As String = "aditem-main"
@@ -27,6 +39,8 @@ Public Function ReadResults(strWebsiteAddress As String, Html As HTMLDocument) A
         Call ResultAds.Add(NewAd)
     Next
     
+    Call EBY_DBG_LOG_ILoggable_WriteToLogger("(" & ResultAds.Count & ") Ad's are parsed from address (" & strWebsiteAddress & ")")
+    
     Set ReadResults = ResultAds
 
 End Function
@@ -51,7 +65,8 @@ Public Function ReadNextResultPage(strWebsiteAddress As String, Html As HTMLDocu
         strUrl = Strings.Replace(NextResultLinkElement, "about:/", strWebsiteAddress)
         
         Dim NextResultHtml As HTMLDocument
-        Set NextResultHtml = EBY_CTR_EbayHtmlRequester.GetHTMLDocument(strUrl)
+        Dim theHtmlRequester As New EBY_CTR_EbayHtmlRequester
+        Set NextResultHtml = theHtmlRequester.GetHTMLDocument(strUrl)
         
         Set retNextResultPage = New EBY_DAT_PAG_ResultPage
         Call retNextResultPage.LoadFromHTMLDocument(strWebsiteAddress, NextResultHtml)
@@ -205,3 +220,15 @@ Private Function CastToDate(strDate As String) As Date
     CastToDate = retDate
 
 End Function
+
+
+
+'   Interface: EBY_DBG_LOG_ILoggable
+'
+Public Sub EBY_DBG_LOG_ILoggable_SetLogger(Logger As EBY_DBG_LOG_ILogger)
+    Set m_logger = Logger
+End Sub
+Private Sub EBY_DBG_LOG_ILoggable_WriteToLogger(Text As String)
+    If (Not m_logger Is Nothing) Then m_logger.Log (Text)
+End Sub
+

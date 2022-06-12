@@ -29,8 +29,9 @@ End Function
 
 Public Sub LoadFromHTMLDocument(ByVal strWebsiteAddress As String, Html As HTMLDocument)
     Set m_HtmlDocument = Html
-    Set m_Ads = EBY_CTR_ResultPageHTMLParser.ReadResults(strWebsiteAddress, Html)
-    Set m_NextResultPage = EBY_CTR_ResultPageHTMLParser.ReadNextResultPage(strWebsiteAddress, Html)
+    Dim theHtmlParser As New EBY_CTR_ResultPageHTMLParser
+    Set m_Ads = theHtmlParser.ReadResults(strWebsiteAddress, Html)
+    Set m_NextResultPage = theHtmlParser.ReadNextResultPage(strWebsiteAddress, Html)
     
     Debug.Print "EBY_DAT_PAG_ResultPage.LoadFromHTMLDocument() -> m_Ads.count=" & m_Ads.Count
     

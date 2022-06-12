@@ -1,0 +1,5 @@
+11.06.2022 13:10:11	Load Resultpage from address (https://www.ebay-kleinanzeigen.de/).Searchterm was (tisch)CategoryValue was (0)strLocation was (65428 rüsselsheim)RadiusValue was (0)
+11.06.2022 13:10:11	[EBY_CTR_EbayHtmlRequester] oXMLHTTP.status = (200) oXMLHTTP.statusText=(OK)
+11.06.2022 13:10:11	[EBY_CTR_EbayHtmlRequester] Requested Resultpage HTMLDocument from address (https://www.ebay-kleinanzeigen.de/). Lentgh of Responsetext was (0) characters. Get-Request text was (https://www.ebay-kleinanzeigen.de/s-suchanfrage.html?keywords=tisch&categoryId=0&locationStr=65428 rüsselsheim&locationId=&radius=0&sortingField=SORTING_DATE&adType=&posterType=&pageNum=1&action=find&maxPrice=&minPrice=)
+11.06.2022 13:10:11	Number of ResultPages found (1)
+11.06.2022 13:10:11	Wrote (0) Ad's into Targetsheet (Data)

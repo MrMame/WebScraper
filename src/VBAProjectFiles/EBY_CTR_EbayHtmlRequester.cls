@@ -1,4 +1,12 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
 Attribute VB_Name = "EBY_CTR_EbayHtmlRequester"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
 Option Explicit
 
 
@@ -32,25 +40,15 @@ Option Explicit
 '       https://www.ebay-kleinanzeigen.de/s-immobilien/65428/c195l4816r30
 
 
+Implements EBY_DBG_LOG_ILoggable
 
-'Public Enum eCategory
-'    all = 0
-'    to_give_away = 192
-'End Enum
-'Public Enum eRadius
-'    KM_5 = 5
-'    KM_10 = 10
-'    KM_20 = 20
-'    KM_30 = 30
-'    KM_50 = 50
-'    KM_100 = 100
-'    KM_150 = 150
-'    KM_200 = 200
-'End Enum
-
+Dim m_logger As EBY_DBG_LOG_ILogger
 
 
 Public Function GetHTMLDocument(strAdress As String) As HTMLDocument
+    
+
+    
     Dim Html As HTMLDocument, hTable As HTMLTable
     Set Html = New HTMLDocument
         
@@ -63,6 +61,9 @@ Public Function GetHTMLDocument(strAdress As String) As HTMLDocument
         .send
     Html.body.innerHTML = .responseText
     End With
+    
+    EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester] Requested HTMLDocument from address (" & strAdress & "). Length of Responsetext was (" & Len(Html.body.innerHTML) & ") Characters")
+    
     Set GetHTMLDocument = Html
 End Function
 
@@ -78,16 +79,24 @@ Public Function GetResultpage(ByVal strWebsiteAddress As String, SearchTerm As S
     strGetRequest = strWebsiteAddress & "s-suchanfrage.html?keywords=" & SearchTerm & "&categoryId=" & CategoryValue & "&locationStr=" & Location & "&locationId=&radius=" & RadiusValue & "&sortingField=SORTING_DATE&adType=&posterType=&pageNum=1&action=find&maxPrice=&minPrice="
     
     Dim oXMLHTTP As New MSXML2.XMLHTTP
-    'With CreateObject("MSXML2.XMLHTTP")
     With oXMLHTTP
         .Open "GET", strGetRequest, False
-        '.Open "GET", strWebsiteAddress & "s-" & SearchTerm & "/k0", False
-        '.setRequestHeader "If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT" 'to deal with potential caching
         .send
-    
-    
-    
-    Html.body.innerHTML = .responseText
+        Html.body.innerHTML = .responseText
+        EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester] oXMLHTTP.status = (" & .Status & ") oXMLHTTP.statusText=(" & .statusText & ")")
     End With
+    
+    EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester] Requested Resultpage HTMLDocument from address (" & strWebsiteAddress & "). Lentgh of Responsetext was (" & Len(Html.body.innerHTML) & ") characters. Get-Request text was (" & strGetRequest & ")")
+
+    
     Set GetResultpage = Html
 End Function
+
+'   Interface: EBY_DBG_LOG_ILoggable
+'
+Public Sub EBY_DBG_LOG_ILoggable_SetLogger(Logger As EBY_DBG_LOG_ILogger)
+    Set m_logger = Logger
+End Sub
+Private Sub EBY_DBG_LOG_ILoggable_WriteToLogger(Text As String)
+    If (Not m_logger Is Nothing) Then m_logger.Log (Text)
+End Sub
