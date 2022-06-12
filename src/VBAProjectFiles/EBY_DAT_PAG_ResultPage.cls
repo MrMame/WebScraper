@@ -27,9 +27,14 @@ Public Function GetAds() As Collection
 End Function
 
 
-Public Sub LoadFromHTMLDocument(ByVal strWebsiteAddress As String, Html As HTMLDocument)
+Public Sub LoadFromHTMLDocument(ByVal strWebsiteAddress As String, Html As HTMLDocument, theHtmlParser As EBY_CTR_ResultPageHTMLParser)
+    
+    
+'
+'   Why is a data class containing dependency to reader ?
+'
+'
     Set m_HtmlDocument = Html
-    Dim theHtmlParser As New EBY_CTR_ResultPageHTMLParser
     Set m_Ads = theHtmlParser.ReadResults(strWebsiteAddress, Html)
     Set m_NextResultPage = theHtmlParser.ReadNextResultPage(strWebsiteAddress, Html)
     

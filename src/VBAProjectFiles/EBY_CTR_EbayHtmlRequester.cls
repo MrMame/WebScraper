@@ -44,28 +44,28 @@ Implements EBY_DBG_LOG_ILoggable
 
 Dim m_logger As EBY_DBG_LOG_ILogger
 
-
-Public Function GetHTMLDocument(strAdress As String) As HTMLDocument
-    
-
-    
-    Dim Html As HTMLDocument, hTable As HTMLTable
-    Set Html = New HTMLDocument
-        
-    Dim strGetRequest As String
-    strGetRequest = strAdress
-    
-    Dim oXMLHTTP As New MSXML2.XMLHTTP
-    With oXMLHTTP
-        .Open "GET", strGetRequest, False
-        .send
-    Html.body.innerHTML = .responseText
-    End With
-    
-    EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester] Requested HTMLDocument from address (" & strAdress & "). Length of Responsetext was (" & Len(Html.body.innerHTML) & ") Characters")
-    
-    Set GetHTMLDocument = Html
-End Function
+'
+'Public Function GetHTMLDocument(strAdress As String) As HTMLDocument
+'
+'
+'
+'    Dim Html As HTMLDocument, hTable As HTMLTable
+'    Set Html = New HTMLDocument
+'
+'    Dim strGetRequest As String
+'    strGetRequest = strAdress
+'
+'    Dim oXMLHTTP As New MSXML2.XMLHTTP
+'    With oXMLHTTP
+'        .Open "GET", strGetRequest, False
+'        .send
+'    Html.body.innerHTML = .responseText
+'    End With
+'
+'    EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester] Requested HTMLDocument from address (" & strAdress & "). Length of Responsetext was (" & Len(Html.body.innerHTML) & ") Characters")
+'
+'    Set GetHTMLDocument = Html
+'End Function
 
 
 Public Function GetResultpage(ByVal strWebsiteAddress As String, SearchTerm As String, CategoryValue As Integer, Location As String, RadiusValue As Integer) As HTMLDocument

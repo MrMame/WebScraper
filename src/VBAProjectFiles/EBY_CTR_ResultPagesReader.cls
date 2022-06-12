@@ -37,8 +37,11 @@ Public Sub LoadResultPages(strWebsiteAddress As String, strSearchTerm As String,
     Call theHtmlRequester.EBY_DBG_LOG_ILoggable_SetLogger(m_logger)
     Set Html = theHtmlRequester.GetResultpage(strWebsiteAddress, strSearchTerm, CategoryValue, strLocation, RadiusValue)
     
+    Dim theEbayHtmlParser As New EBY_CTR_ResultPageHTMLParser
+    Call theEbayHtmlParser.EBY_DBG_LOG_ILoggable_SetLogger(m_logger)
+    
     Dim ResultPage As New EBY_DAT_PAG_ResultPage
-    Call ResultPage.LoadFromHTMLDocument(strWebsiteAddress, Html)
+    Call ResultPage.LoadFromHTMLDocument(strWebsiteAddress, Html, theEbayHtmlParser)
     
     Call retColResultPages.Add(ResultPage)
     
