@@ -65,11 +65,12 @@ Public Function ReadNextResultPage(strWebsiteAddress As String, Html As HTMLDocu
         strUrl = Strings.Replace(NextResultLinkElement, "about:/", strWebsiteAddress)
         
         Dim NextResultHtml As HTMLDocument
-        Dim theHtmlRequester As New EBY_CTR_EbayHtmlRequester
-        Set NextResultHtml = theHtmlRequester.GetHTMLDocument(strUrl)
+        Dim theHttpRequester As New EBY_UTL_HttpRequester
+        Call theHttpRequester.EBY_DBG_LOG_ILoggable_SetLogger(m_logger)
+        Set NextResultHtml = theHttpRequester.GetHTMLDocument(strUrl)
         
         Set retNextResultPage = New EBY_DAT_PAG_ResultPage
-        Call retNextResultPage.LoadFromHTMLDocument(strWebsiteAddress, NextResultHtml)
+        Call retNextResultPage.LoadFromHTMLDocument(strWebsiteAddress, NextResultHtml, Me)
         
     End If
     
