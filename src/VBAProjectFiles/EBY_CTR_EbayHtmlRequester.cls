@@ -44,29 +44,6 @@ Implements EBY_DBG_LOG_ILoggable
 
 Dim m_logger As EBY_DBG_LOG_ILogger
 
-'
-'Public Function GetHTMLDocument(strAdress As String) As HTMLDocument
-'
-'
-'
-'    Dim Html As HTMLDocument, hTable As HTMLTable
-'    Set Html = New HTMLDocument
-'
-'    Dim strGetRequest As String
-'    strGetRequest = strAdress
-'
-'    Dim oXMLHTTP As New MSXML2.XMLHTTP
-'    With oXMLHTTP
-'        .Open "GET", strGetRequest, False
-'        .send
-'    Html.body.innerHTML = .responseText
-'    End With
-'
-'    EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester] Requested HTMLDocument from address (" & strAdress & "). Length of Responsetext was (" & Len(Html.body.innerHTML) & ") Characters")
-'
-'    Set GetHTMLDocument = Html
-'End Function
-
 
 Public Function GetResultpage(ByVal strWebsiteAddress As String, SearchTerm As String, CategoryValue As Integer, Location As String, RadiusValue As Integer) As HTMLDocument
         
@@ -78,17 +55,30 @@ Public Function GetResultpage(ByVal strWebsiteAddress As String, SearchTerm As S
     Dim strGetRequest As String
     strGetRequest = strWebsiteAddress & "s-suchanfrage.html?keywords=" & SearchTerm & "&categoryId=" & CategoryValue & "&locationStr=" & Location & "&locationId=&radius=" & RadiusValue & "&sortingField=SORTING_DATE&adType=&posterType=&pageNum=1&action=find&maxPrice=&minPrice="
     
+    
+    On Error GoTo RequestError
+    
     Dim oXMLHTTP As New MSXML2.XMLHTTP
     With oXMLHTTP
         .Open "GET", strGetRequest, False
         .send
         Html.body.innerHTML = .responseText
-        EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester] oXMLHTTP.status = (" & .Status & ") oXMLHTTP.statusText=(" & .statusText & ")")
+    
+        
+        'EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester.GetResultpage] oXMLHTTP.getAllResponseHeaders = (" & oXMLHTTP.getAllResponseHeaders & ")")
+        
+        'EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester.GetResultpage] oXMLHTTP.status = (" & .Status & ") oXMLHTTP.statusText=(" & .statusText & ")")
+        EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester.GetResultpage] oXMLHTTP.responseText (" & oXMLHTTP.responseText & ")")
+        EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester.GetResultpage] Html.body.innerHTML (" & Html.body.innerHTML & ")")
     End With
     
+    GoTo finish
+RequestError:
+    EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester.GetResultpage] HTTP Request Error (" & Err.Number & ") Err.Description (" & Err.Description & ")")
+
+finish:
     EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester] Requested Resultpage HTMLDocument from address (" & strWebsiteAddress & "). Lentgh of Responsetext was (" & Len(Html.body.innerHTML) & ") characters. Get-Request text was (" & strGetRequest & ")")
 
-    
     Set GetResultpage = Html
 End Function
 
