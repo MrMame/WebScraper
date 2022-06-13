@@ -47,7 +47,7 @@ Public Sub EBY_DBG_LOG_ILogger_Log(Text As String)
     GoTo finish
     
 writeError:
-    Err.Raise "Error accessing logfile." & Err.Number
+    Call Err.Raise(Err.Number, Me, Err.Description)
 finish:
     
         
