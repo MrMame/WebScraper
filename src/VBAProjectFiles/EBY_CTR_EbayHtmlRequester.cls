@@ -45,6 +45,9 @@ Implements EBY_DBG_LOG_ILoggable
 Dim m_logger As EBY_DBG_LOG_ILogger
 
 
+
+
+
 Public Function GetResultpage(ByVal strWebsiteAddress As String, SearchTerm As String, CategoryValue As Integer, Location As String, RadiusValue As Integer) As HTMLDocument
         
     Dim Html As HTMLDocument, hTable As HTMLTable
