@@ -64,7 +64,7 @@ Public Function ReadNextResultPage(strWebsiteAddress As String, Html As HTMLDocu
         Dim strUrl As String
         strUrl = Strings.Replace(NextResultLinkElement, "about:/", strWebsiteAddress)
         
-        Dim NextResultHtml As HTMLDocument
+        Dim NextResultHtml As New HTMLDocument
         Dim theHttpRequester As New EBY_UTL_HttpRequester
         Call theHttpRequester.EBY_DBG_LOG_ILoggable_SetLogger(m_logger)
         Call theHttpRequester.ReadHTMLDocument(strUrl, NextResultHtml)
@@ -188,12 +188,12 @@ Private Function CastToSingle(strValue As String) As Single
             strTmpVal = strTmpVal & Mid(strValue, i, 1)
         End If
     Next
-    On Error GoTo fehler
-    CastToSingle = CSng(strTmpVal)
-    GoTo ende
-fehler:
-    CastToSingle = 0
-ende:
+    
+    If IsNumeric(strTmpVal) Then
+        CastToSingle = CSng(strTmpVal)
+    Else
+        CastToSingle = 0
+    End If
     
 End Function
 
