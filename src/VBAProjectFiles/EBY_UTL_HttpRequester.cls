@@ -19,6 +19,7 @@ Public Function GetHTMLDocument(strAdress As String) As HTMLDocument
  
     Dim Html As HTMLDocument, hTable As HTMLTable
     Set Html = New HTMLDocument
+    Html.body.innerHTML = ""
         
     Dim strGetRequest As String
     strGetRequest = strAdress
