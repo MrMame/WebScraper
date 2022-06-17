@@ -67,7 +67,7 @@ Public Function ReadNextResultPage(strWebsiteAddress As String, Html As HTMLDocu
         Dim NextResultHtml As HTMLDocument
         Dim theHttpRequester As New EBY_UTL_HttpRequester
         Call theHttpRequester.EBY_DBG_LOG_ILoggable_SetLogger(m_logger)
-        Set NextResultHtml = theHttpRequester.GetHTMLDocument(strUrl)
+        Call theHttpRequester.ReadHTMLDocument(strUrl, NextResultHtml)
         
         Set retNextResultPage = New EBY_DAT_PAG_ResultPage
         Call retNextResultPage.LoadFromHTMLDocument(strWebsiteAddress, NextResultHtml, Me)

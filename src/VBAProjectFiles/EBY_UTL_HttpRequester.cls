@@ -15,12 +15,15 @@ Implements EBY_DBG_LOG_ILoggable
 Dim m_logger As EBY_DBG_LOG_ILogger
 
 
-Public Function GetHTMLDocument(strAdress As String) As HTMLDocument
+'
+'   ReadHTMLDocument
+'       Reads the GET Request Response HTMLDocument into HTMLDocument Object
+'
+'       strAddress      as string                GetRequest String that will be send by the XMLHttp
+'       oHtmlDocument   as HTMLDocument         HtmlDocument which will be filled with the request response
+'
+Public Sub ReadHTMLDocument(strAdress As String, ByRef oHtmlDocument As HTMLDocument)
  
-    Dim Html As HTMLDocument, hTable As HTMLTable
-    Set Html = New HTMLDocument
-    Html.body.innerHTML = ""
-        
     Dim strGetRequest As String
     strGetRequest = strAdress
     
@@ -29,19 +32,17 @@ Public Function GetHTMLDocument(strAdress As String) As HTMLDocument
     With oXMLHTTP
         .Open "GET", strGetRequest, False
         .send
-    Html.body.innerHTML = .responseText
+        oHtmlDocument.body.innerHTML = .responseText
     End With
     GoTo finish
     
 RequestError:
     EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_UTL_HttpRequester] Error Get Request: err.number(" & Err.Number & ") err.description(" & Err.Description & ")")
+    oHtmlDocument.body.innerHTML = ""
 finish:
-    
-    EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_UTL_HttpRequester] Requested HTMLDocument from address (" & strAdress & "). Length of Responsetext was (" & Len(Html.body.innerHTML) & ") Characters")
+    EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_UTL_HttpRequester] Requested HTMLDocument from address (" & strAdress & "). Length of Responsetext was (" & Len(oHtmlDocument.body.innerHTML) & ") Characters")
 
-    Set GetHTMLDocument = Html
-End Function
-
+End Sub
 
 
 '   Interface: EBY_DBG_LOG_ILoggable
