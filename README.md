@@ -18,7 +18,8 @@ You can find the german AGB's [here](https://themen.ebay-kleinanzeigen.de/nutzun
 
 
 
-v.0.1.0
+# Features
+## v.0.1.0
 
 You can enter the search query by an inputform.
 ![grafik](https://user-images.githubusercontent.com/51000524/173420075-a62c3883-e84e-47a0-960b-bf9062cd7bd9.png)
