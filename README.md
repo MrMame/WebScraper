@@ -12,7 +12,7 @@ You can find the german AGB's [here](https://themen.ebay-kleinanzeigen.de/nutzun
 
 # Dependencies
  - **Microsoft Visual Basic for Applications Extensibility 5.3** for having access to the VBA Object Model
- - Testing Framework is [AccUnit](https://accunit.access-codelib.net/) for unit testsing. Simply VBUnitFramework v3.0 is used by AccUnit internally. 
+ - Unit Test Framework is **[AccUnit](https://accunit.access-codelib.net/)**.It uses **Simply VBUnitFramework v3.0** internally. 
  - **Microsoft HTML Object Library** to have easy access to the requested HTML Documents.
  - **Microsoft XML, v3.0** to do XML HTTP Requests.
 
