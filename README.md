@@ -9,6 +9,15 @@ Ebay Kleinanzeigen AGB §5 forbid the usage of crawlers like this one.
 You can find the german AGB's [here](https://themen.ebay-kleinanzeigen.de/nutzungsbedingungen/).**
 
 
+
+# Dependencies
+ - **Microsoft Visual Basic for Applications Extensibility 5.3** for having access to the VBA Object Model
+ - Testing Framework is [AccUnit](https://accunit.access-codelib.net/) for unit testsing. Simply VBUnitFramework v3.0 is used by AccUnit internally. 
+ - **Microsoft HTML Object Library** to have easy access to the requested HTML Documents.
+ - **Microsoft XML, v3.0** to do XML HTTP Requests.
+
+
+
 v.0.1.0
 
 You can enter the search query by an inputform.
