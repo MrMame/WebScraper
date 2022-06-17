@@ -25,15 +25,39 @@ Private Sub ITestFixture_AddTestCases(ByVal Tests As SimplyVBUnit.TestCaseCollec
 '--------------------------------------------------------------------
 
 
-Public Sub ExportModules_StateUnderTest_ExpectedBehaviour()
+
+
+
+
+Public Sub ExportModules_InitExportPath_IsWorkbookVBAProjectFilesSubFolder()
     ' Arrange
-    Err.Raise vbObjectError, "ExportModules_StateUnderTest_ExpectedBehaviour", "Test not implemented"
-    Const Expected As Variant = "expected value"
-    Dim Actual As Variant
+    Dim testCodeExporter As New EBY_UTL_VbaCodeExporter
     ' Act
-    Actual = "actual value"
     ' Assert
-    Assert.That Actual, Iz.EqualTo(Expected)
+    Assert.That testCodeExporter.ExportPath, Iz.EqualTo(ActiveWorkbook.Path & "\VBAProjectFiles\")
+    ' CleanUp
 End Sub
 
-
+' AccUnit:ClickingMsgBox(vbYes, vbOk, vbNo)
+Public Sub ExportModules_ClassModule_IsExportedToStandardExportPath()
+    ' Arrange
+        ' Create Class-Component inside this workbook VBProject for Export
+        Dim cmpComponents  As VBComponents
+        Set cmpComponents = ActiveWorkbook.VBProject.VBComponents
+        Dim comp As VBComponent
+        Set comp = cmpComponents.Add(vbext_ct_ClassModule)
+        ' If there is already a export of this class existing, delete it first
+        Dim testExporter As New EBY_UTL_VbaCodeExporter
+        Dim strExportFilename As String
+        strExportFilename = comp.Name & ".cls"
+        Dim strExportFileFullname As String
+        strExportFileFullname = testExporter.ExportPath & strExportFilename
+        If (Dir(strExportFileFullname) = strExportFilename) Then Kill strExportFileFullname
+    ' Act
+        testExporter.ExportModules
+    ' Assert
+        Call Assert.AreEqualStrings(strExportFilename, Dir(strExportFileFullname))
+    ' cleanUp
+        Call cmpComponents.Remove(comp) ' Remove Dummy VBProject Component
+        Kill strExportFileFullname      ' Remove Exported Test File
+End Sub
