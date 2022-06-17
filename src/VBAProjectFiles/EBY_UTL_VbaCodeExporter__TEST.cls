@@ -39,7 +39,7 @@ Public Sub ExportModules_InitExportPath_IsWorkbookVBAProjectFilesSubFolder()
 End Sub
 
 ' AccUnit:ClickingMsgBox(vbYes, vbOk, vbNo)
-Public Sub ExportModules_ClassModule_IsExportedToStandardExportPath()
+Public Sub ExportModules_ClassComponentExport_ToStandardExportPath()
     ' Arrange
         ' Create Class-Component inside this workbook VBProject for Export
         Dim cmpComponents  As VBComponents
@@ -61,3 +61,89 @@ Public Sub ExportModules_ClassModule_IsExportedToStandardExportPath()
         Call cmpComponents.Remove(comp) ' Remove Dummy VBProject Component
         Kill strExportFileFullname      ' Remove Exported Test File
 End Sub
+
+
+' AccUnit:ClickingMsgBox(vbOk)
+Public Sub ExportModules_ClassComponentExport_ToWriteableCustomExportPath()
+    ' Arrange
+        ' Create Class-Component inside this workbook VBProject for Export
+        Dim cmpComponents  As VBComponents
+        Set cmpComponents = ActiveWorkbook.VBProject.VBComponents
+        Dim comp As VBComponent
+        Set comp = cmpComponents.Add(vbext_ct_ClassModule)
+        ' If there is already a export of this class existing, delete it first
+        Dim testExporter As New EBY_UTL_VbaCodeExporter
+        
+        Dim WshShell As Object
+        Set WshShell = CreateObject("WScript.Shell")
+        Dim strSpecialPath As String
+        strSpecialPath = WshShell.SpecialFolders("MyDocuments")
+        Dim strTestExportPath As String
+        strTestExportPath = strSpecialPath & "\"
+        
+        Dim strExportFilename As String
+        strExportFilename = comp.Name & ".cls"
+        Dim strExportFileFullname As String
+        strExportFileFullname = testExporter.ExportPath & strExportFilename
+        If (Dir(strExportFileFullname) = strExportFilename) Then Kill strExportFileFullname
+    ' Act
+        testExporter.ExportModules
+    ' Assert
+        Call Assert.AreEqualStrings(strExportFilename, Dir(strExportFileFullname))
+    ' cleanUp
+        Call cmpComponents.Remove(comp) ' Remove Dummy VBProject Component
+        Kill strExportFileFullname      ' Remove Exported Test File
+End Sub
+
+
+
+Public Sub ExportModules_ClassComponentExportToRestrictedCustomExportPath_ThrowsException()
+    ' Arrange
+        ' Create Class-Component inside this workbook VBProject for Export
+        Dim cmpComponents  As VBComponents
+        Set cmpComponents = ActiveWorkbook.VBProject.VBComponents
+        Dim comp As VBComponent
+        Set comp = cmpComponents.Add(vbext_ct_ClassModule)
+        ' Create Folder with write protection on it
+         Dim WshShell As Object
+        Set WshShell = CreateObject("WScript.Shell")
+        Dim strSpecialPath As String
+        strSpecialPath = WshShell.SpecialFolders("MyDocuments") & "\WriteProtected\"
+        MkDir strSpecialPath
+        ' Set Write Protection to Folder
+        SetReadOnly (strSpecialPath)        '' NOT WORKING. NEED A WRITE PROTECTED FOLDER !!!!!
+        Dim testExporter As New EBY_UTL_VbaCodeExporter
+        testExporter.ExportPath = strSpecialPath
+    ' Act
+        testExporter.ExportModules
+    ' Assert
+       Call Assert.Throws(70)
+    ' cleanUp
+        Call cmpComponents.Remove(comp) ' Remove Dummy VBProject Component
+        RmDir strSpecialPath
+End Sub
+
+
+
+
+Private Sub RemoveReadOnly(filePath As String)
+    Dim FSO As FileSystemObject
+    Dim f As Scripting.Folder
+    Set FSO = New FileSystemObject
+    Set f = FSO.GetFolder(filePath)
+
+    If f.Attributes And ReadOnly Then 'It's read-only. Remove that attribute.
+        f.Attributes = f.Attributes - ReadOnly
+    End If
+End Sub
+Private Sub SetReadOnly(filePath As String)
+    Dim FSO As FileSystemObject
+    Dim f As Scripting.Folder
+    Set FSO = New FileSystemObject
+    Set f = FSO.GetFolder(filePath)
+
+    If Not f.Attributes And ReadOnly Then 'It's read-only. Remove that attribute.
+        f.Attributes = f.Attributes Or ReadOnly
+    End If
+End Sub
+
