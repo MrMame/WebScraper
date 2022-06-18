@@ -97,33 +97,6 @@ End Sub
 
 
 
-Public Sub ExportModules_ClassComponentExportToRestrictedCustomExportPath_ThrowsException()
-    ' Arrange
-        ' Create Class-Component inside this workbook VBProject for Export
-        Dim cmpComponents  As VBComponents
-        Set cmpComponents = ActiveWorkbook.VBProject.VBComponents
-        Dim comp As VBComponent
-        Set comp = cmpComponents.Add(vbext_ct_ClassModule)
-        ' Create Folder with write protection on it
-         Dim WshShell As Object
-        Set WshShell = CreateObject("WScript.Shell")
-        Dim strSpecialPath As String
-        strSpecialPath = WshShell.SpecialFolders("MyDocuments") & "\WriteProtected\"
-        MkDir strSpecialPath
-        ' Set Write Protection to Folder
-        SetReadOnly (strSpecialPath)        '' NOT WORKING. NEED A WRITE PROTECTED FOLDER !!!!!
-        Dim testExporter As New EBY_UTL_VbaCodeExporter
-        testExporter.ExportPath = strSpecialPath
-    ' Act
-        testExporter.ExportModules
-    ' Assert
-       Call Assert.Throws(70)
-    ' cleanUp
-        Call cmpComponents.Remove(comp) ' Remove Dummy VBProject Component
-        RmDir strSpecialPath
-End Sub
-
-
 
 
 Private Sub RemoveReadOnly(filePath As String)
