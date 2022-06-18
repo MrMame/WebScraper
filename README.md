@@ -12,9 +12,17 @@ You can find the german AGB's [here](https://themen.ebay-kleinanzeigen.de/nutzun
 
 # Dependencies
  - **Microsoft Visual Basic for Applications Extensibility 5.3** for having access to the VBA Object Model
- - Unit Test Framework is **[AccUnit](https://accunit.access-codelib.net/)**.It uses **Simply VBUnitFramework v3.0** internally. 
- - **Microsoft HTML Object Library** to have easy access to the requested HTML Documents.
- - **Microsoft XML, v3.0** to do XML HTTP Requests.
+ - Unit Test Framework is **[AccUnit](https://accunit.access-codelib.net/)** v0.9.10 
+ - **Microsoft HTML Object Library** to have easy access to the requested HTML Documents
+ - **Microsoft XML, v3.0** to do XML HTTP Requests
+
+# Deploy
+If you want to release the file for production usage, you have to remove the accUnit testcode and its references first.
+The accunit add-in has a nice auto-remove feature. By clicking on **"Extras/AccUnit-de/Testumgebung entfernen"** inside 
+the VBA-IDE, all test releated stuff gets removed. Be sure
+to do so. Otherwise there will be reference errors on the customers PC because of missing accunit libraries.
+
+![grafik](https://user-images.githubusercontent.com/51000524/174429022-08de955d-0cde-48e5-adf7-c591f6f3a6e5.png)
 
 
 
