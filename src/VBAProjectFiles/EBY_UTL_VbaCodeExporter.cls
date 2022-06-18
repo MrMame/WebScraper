@@ -113,7 +113,6 @@ Private Sub CreateExportFolder(CleanUp As Boolean, strFolderName As String)
             Call Err.Raise(Err.Number, Err.Description)
         End If
     End If
+    
 
 End Sub
-
-
