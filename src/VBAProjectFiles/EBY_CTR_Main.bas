@@ -37,11 +37,36 @@ Public Function SearchEbay(strSearchTerm As String, strLocation As String, Categ
       
     Next
 
+
+    Dim shtTarget As Worksheet
+    Set shtTarget = GetSheet("Data")
     Dim theTableWriter As New EBY_UTL_TableWriter
     Call theTableWriter.EBY_DBG_LOG_ILoggable_SetLogger(theLoggers)
-    Call theTableWriter.WriteAds(AllAds, "Data")
+    Call theTableWriter.WriteAds(AllAds, shtTarget)
 
 End Function
 
 
+
+Private Function GetSheet(sheetname As String, Optional CleanSheet As Boolean = True) As Worksheet
+
+    Dim retSheet As Worksheet
+
+    On Error GoTo noSheet
+    Set retSheet = ActiveWorkbook.Sheets(sheetname)
+    If (CleanSheet = True) Then
+        Application.DisplayAlerts = False
+        retSheet.Delete
+        Application.DisplayAlerts = True
+        Set retSheet = ActiveWorkbook.Sheets.Add(after:=ActiveWorkbook.Sheets(ActiveWorkbook.Sheets.Count))
+        retSheet.Name = sheetname
+    End If
+    GoTo endThis
+
+noSheet:
+    Set retSheet = ActiveWorkbook.Sheets.Add(after:=ActiveWorkbook.Sheets(ActiveWorkbook.Sheets.Count))
+    retSheet.Name = sheetname
+endThis:
+    Set GetSheet = retSheet
+End Function
 

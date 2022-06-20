@@ -24,11 +24,7 @@ Private Const STRING_TABLENAME_ADS As String = "Tab_Ads"
 Private Const STRING_HEADERNAME_NEGOTIABLE As String = "Verhandelbar"
 Private Const STRING_TABLE_VALUE_NEGOTIABLE As String = "X"
 
-Public Sub WriteAds(Ads As Collection, TargetSheetName As String)
-    
-    Dim shtTarget As Worksheet
-    Set shtTarget = GetSheet(TargetSheetName)
-    
+Public Sub WriteAds(Ads As Collection, shtTarget As Worksheet)
     
     Application.ScreenUpdating = False
     
@@ -71,31 +67,31 @@ Public Sub WriteAds(Ads As Collection, TargetSheetName As String)
     Application.ScreenUpdating = True
     
     
-    EBY_DBG_LOG_ILoggable_WriteToLogger ("Wrote (" & Ads.Count & ") Ad's into Targetsheet (" & TargetSheetName & ")")
+    EBY_DBG_LOG_ILoggable_WriteToLogger ("Wrote (" & Ads.Count & ") Ad's into Targetsheet (" & shtTarget.Name & ")")
     
 End Sub
 
-Private Function GetSheet(sheetname As String, Optional CleanSheet As Boolean = True) As Worksheet
-
-    Dim retSheet As Worksheet
-
-    On Error GoTo noSheet
-    Set retSheet = ActiveWorkbook.Sheets(sheetname)
-    If (CleanSheet = True) Then
-        Application.DisplayAlerts = False
-        retSheet.Delete
-        Application.DisplayAlerts = True
-        Set retSheet = ActiveWorkbook.Sheets.Add(after:=ActiveWorkbook.Sheets(ActiveWorkbook.Sheets.Count))
-        retSheet.Name = sheetname
-    End If
-    GoTo endThis
-
-noSheet:
-    Set retSheet = ActiveWorkbook.Sheets.Add(after:=ActiveWorkbook.Sheets(ActiveWorkbook.Sheets.Count))
-    retSheet.Name = sheetname
-endThis:
-    Set GetSheet = retSheet
-End Function
+'Private Function GetSheet(sheetname As String, Optional CleanSheet As Boolean = True) As Worksheet
+'
+'    Dim retSheet As Worksheet
+'
+'    On Error GoTo noSheet
+'    Set retSheet = ActiveWorkbook.Sheets(sheetname)
+'    If (CleanSheet = True) Then
+'        Application.DisplayAlerts = False
+'        retSheet.Delete
+'        Application.DisplayAlerts = True
+'        Set retSheet = ActiveWorkbook.Sheets.Add(after:=ActiveWorkbook.Sheets(ActiveWorkbook.Sheets.Count))
+'        retSheet.Name = sheetname
+'    End If
+'    GoTo endThis
+'
+'noSheet:
+'    Set retSheet = ActiveWorkbook.Sheets.Add(after:=ActiveWorkbook.Sheets(ActiveWorkbook.Sheets.Count))
+'    retSheet.Name = sheetname
+'endThis:
+'    Set GetSheet = retSheet
+'End Function
 
 
 
