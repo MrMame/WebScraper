@@ -1,8 +1,8 @@
 # EBay-Kleinanzeigen Site Scraper
 
-VBA-Excel Macro to collect Data from EBay-Kleinanzeigen.
+VBA-Excel Macro for collecting requested data from EBay-Kleinanzeigen.
 At the moment, there is no free/public API available.
-Collected Ads data will be presented inside an Excel table.
+Ads data will be presented inside an Excel table.
 
 **Be adviced !
 Ebay Kleinanzeigen AGB §5 forbid the usage of crawlers like this one.
