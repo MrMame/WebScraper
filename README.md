@@ -8,6 +8,22 @@ Collected Ads data will be presented inside an Excel table.
 Ebay Kleinanzeigen AGB §5 forbid the usage of crawlers like this one.
 You can find the german AGB's [here](https://themen.ebay-kleinanzeigen.de/nutzungsbedingungen/).**
 
+# Installation
+
+## Step1. Check if all necessary references are selected inside the workbook.
+Open the reference manager inside the VBA IDE. Ensure that following references are checked :
+
+- Microsoft XML, v3.0
+- Microsoft HTML Object Library
+- Microsoft Visual Basic for Applications Extensibility 5.3
+
+![grafik](https://user-images.githubusercontent.com/51000524/174578399-2dea6a13-c7ff-4227-bdc6-aa87eedcb080.png)
+![grafik](https://user-images.githubusercontent.com/51000524/174578719-2ad788e5-63a0-43f7-9aab-126cad3c2d12.png)
+
+## Step2. Install the accUnit Test Framework
+Got to [AccUnit](https://accunit.access-codelib.net/) Webpage and install version 0.9.10 of the accUnit Test Framework. After the installation, you will have new options inside the VBA IDE for testing. For further explanations, please read the documentation on the website itself.
+
+![grafik](https://user-images.githubusercontent.com/51000524/174579550-ac45ca14-1ece-4279-9c1c-d06ca71d3b22.png)
 
 
 # Dependencies
