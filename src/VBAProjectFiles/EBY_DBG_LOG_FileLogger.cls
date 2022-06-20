@@ -38,18 +38,21 @@ End Sub
 
 Public Sub EBY_DBG_LOG_ILogger_Log(Text As String)
     Const ForReading = 1, ForWriting = 2, ForAppending = 8
-    Const TristateUseDefault = -2, TristateTrue = -1, TristateFalse = 0
+    Const TritateUseDefault = -2, TristateTrue = -1, TristateFalse = 0
      
-    On Error GoTo writeError
+
+    
+    Debug.Print "Logfiletext Length (" & Len(Text) & ")"
     Set m_oFile = m_FSO.OpenTextFile(m_Filename, ForAppending, True, TristateFalse)
     m_oFile.WriteLine Now & vbTab & Text
-    m_oFile.Close
+    
     GoTo finish
     
 writeError:
     Call Err.Raise(Err.Number, Me, Err.Description)
 finish:
-    
+    On Error Resume Next
+    m_oFile.Close
         
 End Sub
 

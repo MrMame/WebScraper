@@ -29,7 +29,7 @@ Dim m_boolShowExportMessage As Boolean
 
 
 Public Property Get Workbook() As Excel.Workbook
-    Workbook = m_wkbSource
+    Set Workbook = m_wkbSource
 End Property
 Public Property Let Workbook(value As Excel.Workbook)
     m_wkbSource = value
@@ -64,7 +64,7 @@ Public Sub ExportModules()
         Exit Sub
     End If
     
-    Call CreateExportFolder(CleanUp:=True, strFoldername:=m_strExportPath)
+    Call CreateExportFolder(CleanUp:=True, strFolderName:=m_strExportPath)
     
     Dim szFileName As String
     Dim cmpComponent As VBIDE.VBComponent
@@ -93,27 +93,26 @@ Public Sub ExportModules()
 End Sub
 
 
-Private Sub CreateExportFolder(CleanUp As Boolean, strFoldername As String)
+Private Sub CreateExportFolder(CleanUp As Boolean, strFolderName As String)
 
     Dim WshShell As Object
     Dim FSO As Object
     Set WshShell = CreateObject("WScript.Shell")
     Set FSO = CreateObject("scripting.filesystemobject")
 
-    If FSO.FolderExists(strFoldername) = False Then
-        MkDir strFoldername
+    If FSO.FolderExists(strFolderName) = False Then
+        MkDir strFolderName
     End If
     
     If (CleanUp) Then
         On Error Resume Next
-        Kill strFoldername & "\*.*"
+        Kill strFolderName & "\*.*"
         If (Err.Number = 53 Or Err.Number = 0) Then
             ' Do nothing
         Else
             Call Err.Raise(Err.Number, Err.Description)
         End If
     End If
+    
 
 End Sub
-
-

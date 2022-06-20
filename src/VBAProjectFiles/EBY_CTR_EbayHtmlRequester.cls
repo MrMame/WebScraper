@@ -66,13 +66,6 @@ Public Function GetResultpage(ByVal strWebsiteAddress As String, SearchTerm As S
         .Open "GET", strGetRequest, False
         .send
         Html.body.innerHTML = .responseText
-    
-        
-        'EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester.GetResultpage] oXMLHTTP.getAllResponseHeaders = (" & oXMLHTTP.getAllResponseHeaders & ")")
-        
-        'EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester.GetResultpage] oXMLHTTP.status = (" & .Status & ") oXMLHTTP.statusText=(" & .statusText & ")")
-        EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester.GetResultpage] oXMLHTTP.responseText (" & oXMLHTTP.responseText & ")")
-        EBY_DBG_LOG_ILoggable_WriteToLogger ("[EBY_CTR_EbayHtmlRequester.GetResultpage] Html.body.innerHTML (" & Html.body.innerHTML & ")")
     End With
     
     GoTo finish
