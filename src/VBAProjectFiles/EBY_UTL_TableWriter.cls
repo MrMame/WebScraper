@@ -26,6 +26,12 @@ Private Const STRING_TABLE_VALUE_NEGOTIABLE As String = "X"
 
 Public Sub WriteAds(Ads As Collection, shtTarget As Worksheet)
     
+    If (Ads Is Nothing) Then
+        Call Err.Raise(91, Description:="Ads Collection is nothing!")
+    ElseIf (shtTarget Is Nothing) Then
+        Call Err.Raise(91, Description:="shtTargetis nothing!")
+    End If
+      
     Application.ScreenUpdating = False
     
     ' Write Header and the Columns Format

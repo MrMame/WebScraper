@@ -30,3 +30,7 @@ Public Function AccUnitTestClassFactory_EBY_UTL_VbaCodeExporter__TEST() As Objec
    Set AccUnitTestClassFactory_EBY_UTL_VbaCodeExporter__TEST = New EBY_UTL_VbaCodeExporter__TEST
 End Function
 
+Public Function AccUnitTestClassFactory_EBY_UTL_TableWriter__TEST() As Object
+   Set AccUnitTestClassFactory_EBY_UTL_TableWriter__TEST = New EBY_UTL_TableWriter__TEST
+End Function
+
