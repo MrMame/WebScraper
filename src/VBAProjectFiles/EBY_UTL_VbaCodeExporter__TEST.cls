@@ -33,7 +33,7 @@ Private Sub ITestFixture_AddTestCases(ByVal Tests As SimplyVBUnit.TestCaseCollec
 '--------------------------------------------------------------------
 
 
-Public Sub ExportModules_StandardExportPath_IsSubfolderOfWorkbookCalledVBAProjectFiles()
+Public Sub PropertyExportPath_InitValue_IsSubfolderOfWorkbookCalledVBAProjectFiles()
     ' Arrange
        Dim testExporter As New EBY_UTL_VbaCodeExporter
        Dim assertFolder As String
@@ -42,6 +42,26 @@ Public Sub ExportModules_StandardExportPath_IsSubfolderOfWorkbookCalledVBAProjec
         Call Assert.AreEqualStrings(testExporter.ExportPath, assertFolder)
     ' cleanUp
 End Sub
+Public Sub PropertyWorkbook_InitValue_IsActiveWorkbook()
+    ' Arrange
+       Dim testExporter As New EBY_UTL_VbaCodeExporter
+       Dim assertWorkbook As Workbook
+       Set assertWorkbook = ActiveWorkbook
+    ' Assert
+        Call Assert.AreEqual(testExporter.Workbook, assertWorkbook)
+    ' cleanUp
+End Sub
+Public Sub PropertyShowExportMessage_InitValue_IsTrue()
+    ' Arrange
+       Dim testExporter As New EBY_UTL_VbaCodeExporter
+       Dim assertion As Boolean
+       assertion = True
+    ' Assert
+        Call Assert.AreEqual(testExporter.ShowExportMessage, assertion)
+    ' cleanUp
+End Sub
+
+
 
 
 ' AccUnit:ClickingMsgBox(vbOk)
@@ -67,7 +87,7 @@ Public Sub ExportModules_ClassExportToWriteableCustomExportPath_IsWorking()
         Call Assert.AreEqualStrings(strTestExportFilename, _
                                     Dir(strTestExportPath & strTestExportFilename))
     ' cleanUp
-        Call RemoveTestComponent(comp)
+        Call RemoveAllTestComponents
         Call RemoveFolder(strTestExportPath)
 End Sub
 
@@ -75,7 +95,8 @@ End Sub
 'AccUnit:Row(":C:C")
 'AccUnit:Row("")
 'AccUnit:Row("\\\")
-Public Sub ExportModules_ClassExportToInvalidExportPath_ThrowsException(strTestPath As String)
+'AccUnit:Row("\\NotExisting\NoFolder")
+Public Sub ExportModules_ClassExportToInvalidExportPath_ThrowsException76(strTestPath As String)
     ' Arrange
         ' Create Class-Component inside this workbook VBProject for Export
         Dim comp As VBComponent
@@ -95,7 +116,7 @@ Public Sub ExportModules_ClassExportToInvalidExportPath_ThrowsException(strTestP
     ' cleanUp
         ' NOT WORKING!
         ' If assertion is to catch an exception, all following statements are not processed as soon as
-        ' the exception occures. The Clean Up has tobe done as the last test inside this class.
+        ' the exception occures. The Clean Up has to be done inside the last test inside this class.
         ' NOT WORKING ----> Call RemoveAllTestComponents
 End Sub
 
@@ -143,11 +164,7 @@ Private Function CreateTestComponent(ComponentType As vbext_ComponentType) As VB
     
     Set CreateTestComponent = comp
 End Function
-Private Sub RemoveTestComponent(RemoveComponent As VBComponent)
-    Dim cmpComponents  As VBComponents
-    Set cmpComponents = ActiveWorkbook.VBProject.VBComponents
-    Call cmpComponents.Remove(RemoveComponent) ' Remove Dummy VBProject Component
-End Sub
+
 Private Sub RemoveAllTestComponents()
     Dim cmpComponents  As VBComponents
     Set cmpComponents = ActiveWorkbook.VBProject.VBComponents

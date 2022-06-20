@@ -29,7 +29,7 @@ Dim m_boolShowExportMessage As Boolean
 
 
 Public Property Get Workbook() As Excel.Workbook
-    Workbook = m_wkbSource
+    Set Workbook = m_wkbSource
 End Property
 Public Property Let Workbook(value As Excel.Workbook)
     m_wkbSource = value
