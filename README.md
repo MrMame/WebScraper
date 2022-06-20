@@ -31,6 +31,7 @@ Got to [AccUnit](https://accunit.access-codelib.net/) Webpage and install versio
  - Unit Test Framework is **[AccUnit](https://accunit.access-codelib.net/)** v0.9.10 
  - **Microsoft HTML Object Library** to have easy access to the requested HTML Documents
  - **Microsoft XML, v3.0** to do XML HTTP Requests
+ - Used Microsoft Office Excel version was v14.0.7268.5000(32bit) (Microsoft Office Professional Plus 2010)
 
 # Deploy
 If you want to release the file for production usage, you have to remove the accUnit testcode and its references first.
