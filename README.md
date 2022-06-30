@@ -21,7 +21,7 @@ Open the reference manager inside the VBA IDE. Ensure that following references 
 ![grafik](https://user-images.githubusercontent.com/51000524/174578719-2ad788e5-63a0-43f7-9aab-126cad3c2d12.png)
 
 ## Step2. Install the accUnit Test Framework
-Got to [AccUnit](https://accunit.access-codelib.net/) Webpage and install version 0.9.10 of the accUnit Test Framework. After the installation, you will have new options inside the VBA IDE for testing. For further explanations, please read the documentation on the website itself.
+Go to [AccUnit](https://accunit.access-codelib.net/) Webpage and install version 0.9.10 of the accUnit Test Framework. After the installation, you will have new options inside the VBA IDE for testing. For further explanations, please read the documentation on the website itself.
 
 ![grafik](https://user-images.githubusercontent.com/51000524/174579550-ac45ca14-1ece-4279-9c1c-d06ca71d3b22.png)
 
